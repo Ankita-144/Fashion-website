@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChicStyle Co. - Your Fashion Destination</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for global styles or overrides */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f8f8f8; /* Light background for the page */
+        }
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Simple carousel styling for JS */
+        .carousel-item {
+            display: none;
+            width: 100%; /* Ensure each item takes full width for flex-shrink-0 to work */
+        }
+        .carousel-item.active {
+            display: flex; /* Changed to flex to maintain internal layout */
+        }
+
+        /* Keyframe animations for sections */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px) rotate(3deg); }
+            to { opacity: 1; transform: translateX(0) rotate(3deg); }
+        }
+
+        .animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-zoom-in { animation: zoomIn 0.8s ease-out forwards; }
+        .animate-slide-in-right { animation: slideInRight 0.8s ease-out forwards; }
+
+        /* Styles for subscription message */
+        #subscription-message, #download-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none; /* Hidden by default */
+        }
+        #subscription-message.success, #download-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #subscription-message.error, #download-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        #download-message.info { /* New style for info messages */
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md p-4 sticky top-0 z-50">
+        <nav class="container mx-auto flex items-center justify-between flex-wrap">
+            <!-- Logo -->
+            <a href="#" class="flex items-center flex-shrink-0 text-gray-900 mr-6">
+                <span class="font-bold text-2xl tracking-tight">ChicStyle Co.</span>
+            </a>
+            <!-- Mobile Toggle Button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-gray-900">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z"/></svg>
+                </button>
+            </div>
+            <!-- Navigation Links -->
+            <div id="nav-content" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+                <div class="text-sm lg:flex-grow">
+                    <a href="#home" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">Home</a>
+                    <a href="#shop" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">Shop</a>
+                    <a href="#jewellery" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">Jewellery</a>
+                    <a href="#trends-collection" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">Trends</a>
+                    <a href="#new-arrivals" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">New Arrivals</a>
+                    <a href="#about" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-6 font-medium">Contact</a>
+                </div>
+                <!-- Call to Action Button (optional) -->
+                <div>
+                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white bg-indigo-600 border-indigo-600 hover:border-transparent hover:bg-indigo-700 mt-4 lg:mt-0 transition duration-300">Shop Now</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-pink-500 to-indigo-500 text-white py-20 lg:py-32 overflow-hidden">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4">
+            <div class="w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+                <h2 class="text-4xl lg:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+                    Discover Your Style
+                </h2>
+                <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
+                    Shop the latest trends and timeless classics for every occasion.
+                </p>
+                <a href="#shop" class="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition duration-300 animate-zoom-in">
+                    Explore Collections
+                </a>
+            </div>
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                <img src="https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Fashion Model" class="rounded-lg shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500 animate-slide-in-right">
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories Section -->
+    <section id="shop" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Featured Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Category Card 1: Women's -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Women's Fashion" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Women's Collection</h3>
+                        <p class="text-gray-600 mb-4">Dresses, tops, skirts, and more.</p>
+                        <a href="#" class="inline-block bg-pink-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-pink-600 transition duration-300">Shop Women</a>
+                    </div>
+                </div>
+                <!-- Category Card 2: Men's -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Men's Fashion" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Men's Collection</h3>
+                        <p class="text-gray-600 mb-4">Shirts, trousers, jackets, and accessories.</p>
+                        <a href="#" class="inline-block bg-blue-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-600 transition duration-300">Shop Men</a>
+                    </div>
+                </div>
+                <!-- Category Card 3: Accessories -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Accessories" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Accessories</h3>
+                        <p class="text-gray-600 mb-4">Bags, jewelry, belts, and eyewear.</p>
+                        <a href="#" class="inline-block bg-purple-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-purple-600 transition duration-300">Shop Accessories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jewellery Collection Section -->
+    <section id="jewellery" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Exquisite Jewellery</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Jewellery Item 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Diamond Necklace Set" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Sparkling Diamond Necklace</h3>
+                        <p class="text-gray-600 mb-4">Elegance that captivates every gaze.</p>
+                        <a href="#" class="inline-block bg-emerald-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-emerald-600 transition duration-300">View Details</a>
+                    </div>
+                </div>
+                <!-- Jewellery Item 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/1083422/pexels-photo-1083422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Gold Earrings Design" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Handcrafted Gold Earrings</h3>
+                        <p class="text-gray-600 mb-4">Timeless designs for every occasion.</p>
+                        <a href="#" class="inline-block bg-amber-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-amber-600 transition duration-300">View Details</a>
+                    </div>
+                </div>
+                <!-- Jewellery Item 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/1070275/pexels-photo-1070275.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Silver Bracelet Modern" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Modern Silver Bracelets</h3>
+                        <p class="text-gray-600 mb-4">Sleek and sophisticated wristwear.</p>
+                        <a href="#" class="inline-block bg-gray-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-700 transition duration-300">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trends Collection Section -->
+    <section id="trends-collection" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Latest Fashion Trends</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Trend Item 1 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/3771120/pexels-photo-3771120.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Spring Summer Fashion" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Spring/Summer Vibes</h3>
+                        <p class="text-gray-600 mb-4">Flowy fabrics and vibrant colors.</p>
+                        <a href="#" class="inline-block bg-lime-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-lime-600 transition duration-300">Discover More</a>
+                    </div>
+                </div>
+                <!-- Trend Item 2 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/3771124/pexels-photo-3771124.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Urban Street Style" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Urban Street Style</h3>
+                        <p class="text-gray-600 mb-4">Edgy looks for city adventures.</p>
+                        <a href="#" class="inline-block bg-zinc-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-zinc-600 transition duration-300">Explore Style</a>
+                    </div>
+                </div>
+                <!-- Trend Item 3 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.pexels.com/photos/3762699/pexels-photo-3762699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Formal Wear Trends" class="w-full h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Contemporary Formal Wear</h3>
+                        <p class="text-gray-600 mb-4">Sophisticated designs for grand occasions.</p>
+                        <a href="#" class="inline-block bg-fuchsia-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-fuchsia-700 transition duration-300">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section (Carousel with JS) -->
+    <section id="new-arrivals" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">New Arrivals</h2>
+            <div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-xl shadow-2xl">
+                <!-- Carousel Container -->
+                <div id="image-carousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Carousel Item 1 -->
+                    <div class="carousel-item flex-shrink-0 w-full p-4 bg-white flex flex-col md:flex-row items-center justify-center gap-6 rounded-xl">
+                        <img src="https://images.pexels.com/photos/1013774/pexels-photo-1013774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant Summer Dress" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-md">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-3xl font-semibold text-gray-900 mb-2">Elegant Summer Dress</h3>
+                            <p class="text-gray-600 text-lg mb-4">Lightweight and breathable for sunny days.</p>
+                            <span class="text-2xl font-bold text-indigo-600 block mb-4">$79.99</span>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Carousel Item 2 -->
+                    <div class="carousel-item flex-shrink-0 w-full p-4 bg-white flex flex-col md:flex-row items-center justify-center gap-6 rounded-xl">
+                        <img src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Luxury Chronograph Watch" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-md">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-3xl font-semibold text-gray-900 mb-2">Luxury Chronograph Watch</h3>
+                            <p class="text-gray-600 text-lg mb-4">Precision timepiece for the modern gentleman.</p>
+                            <span class="text-2xl font-bold text-indigo-600 block mb-4">$299.00</span>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Carousel Item 3 -->
+                    <div class="carousel-item flex-shrink-0 w-full p-4 bg-white flex flex-col md:flex-row items-center justify-center gap-6 rounded-xl">
+                        <img src="https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Chic Designer Handbag" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-md">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-3xl font-semibold text-gray-900 mb-2">Chic Designer Handbag</h3>
+                            <p class="text-gray-600 text-lg mb-4">Stylish and spacious for all your essentials.</p>
+                            <span class="text-2xl font-bold text-indigo-600 block mb-4">$189.50</span>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Navigation Buttons -->
+                <button id="prev-button" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 focus:outline-none transition-colors duration-300">
+                    &#10094;
+                </button>
+                <button id="next-carousel-button" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 focus:outline-none transition-colors duration-300">
+                    &#10095;
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">About ChicStyle Co.</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-6">
+                ChicStyle Co. is your premier destination for the latest fashion trends and timeless pieces. We believe in empowering individuals through style, offering a curated collection that reflects elegance, quality, and individuality. Our mission is to make high-fashion accessible and enjoyable for everyone.
+            </p>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                Founded on the principles of passion and creativity, we meticulously select each item to ensure it meets our standards of craftsmanship and design. Join our community of fashion enthusiasts and discover unique pieces that define your personal narrative.
+            </p>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup Section -->
+    <section id="contact" class="py-16 bg-gradient-to-r from-blue-500 to-teal-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">Stay Stylish, Get Updates!</h2>
+            <p class="text-lg mb-8 opacity-90">
+                Subscribe to our newsletter for exclusive offers, new arrivals, and style tips.
+            </p>
+            <form id="newsletter-form" class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" id="email-input" placeholder="Enter your email address" class="flex-grow p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" required>
+                <button type="submit" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300">Subscribe Now</button>
+            </form>
+            <div id="subscription-message" class="text-base mt-4"></div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400 mb-4">&copy; 2025 ChicStyle Co. All rights reserved.</p>
+            <p id="user-id-display" class="text-gray-500 text-sm mb-2">User ID: Loading...</p>
+            <button id="download-subscribers-button" class="inline-block bg-gray-700 text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300 mt-4">
+                Download Subscribers
+            </button>
+            <div id="download-message" class="text-base mt-2"></div>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300">Facebook</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs - MUST be loaded BEFORE your script that uses Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- Firebase Initialization ---
+        let app;
+        let db;
+        let auth;
+        let userId;
+
+        const userIdDisplay = document.getElementById('user-id-display');
+        const downloadMessage = document.getElementById('download-message');
+
+        async function initializeFirebaseAndAuth() {
+            try {
+                // Initialize Firebase app if not already initialized
+                if (!app) {
+                    app = initializeApp(firebaseConfig);
+                }
+                // Get Firestore and Auth instances
+                if (!db) {
+                    db = getFirestore(app);
+                }
+                if (!auth) {
+                    auth = getAuth(app);
+                }
+
+                // Sign in with custom token if available, otherwise anonymously
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Listen for auth state changes to get the user ID
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase initialized. User ID:", userId);
+                        if (userIdDisplay) {
+                            userIdDisplay.textContent = `User ID: ${userId}`;
+                        }
+                    } else {
+                        userId = crypto.randomUUID(); // Fallback to a random ID if not authenticated
+                        console.log("Firebase initialized. Signed in anonymously. User ID:", userId);
+                        if (userIdDisplay) {
+                             userIdDisplay.textContent = `User ID: ${userId} (Anonymous)`;
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error initializing Firebase or signing in:", error);
+                if (userIdDisplay) {
+                    userIdDisplay.textContent = `User ID: Error (${error.message})`;
+                }
+            }
+        }
+
+        // Call the initialization function when the script loads
+        initializeFirebaseAndAuth();
+
+        // --- Newsletter Subscription Logic ---
+        const newsletterForm = document.getElementById('newsletter-form');
+        const emailInput = document.getElementById('email-input');
+        const subscriptionMessage = document.getElementById('subscription-message');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                const email = emailInput.value;
+                if (!email) {
+                    showMessage("Please enter a valid email address.", 'error', subscriptionMessage);
+                    return;
+                }
+
+                if (!db || !userId) {
+                    showMessage("Database not ready. Please try again in a moment.", 'error', subscriptionMessage);
+                    console.error("Firestore or User ID not available yet.");
+                    return;
+                }
+
+                try {
+                    // Add the email to a Firestore collection
+                    // Path: /artifacts/{appId}/public/data/newsletter_subscribers
+                    await addDoc(collection(db, `artifacts/${appId}/public/data/newsletter_subscribers`), {
+                        email: email,
+                        subscribedAt: serverTimestamp(), // Record the time of subscription
+                        userId: userId // Store the user's ID
+                    });
+
+                    showMessage("Thank you for subscribing!", 'success', subscriptionMessage);
+                    emailInput.value = ''; // Clear the input field
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    showMessage(`Subscription failed: ${error.message}`, 'error', subscriptionMessage);
+                }
+            });
+        }
+
+        // Function to display messages (success/error/info)
+        function showMessage(message, type, element) {
+            element.textContent = message;
+            element.className = ''; // Clear existing classes
+            // Only add class if type is provided and not empty
+            if (type) {
+                element.classList.add(type);
+            }
+            element.style.display = 'block'; // Show the message
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        // --- CSV Download Logic ---
+        const downloadSubscribersButton = document.getElementById('download-subscribers-button');
+
+        if (downloadSubscribersButton) {
+            downloadSubscribersButton.addEventListener('click', async () => {
+                if (!db) {
+                    showMessage("Database not ready for download. Please refresh and try again.", 'error', downloadMessage);
+                    return;
+                }
+
+                // Changed empty type to 'info' for the loading message
+                showMessage("Preparing download...", 'info', downloadMessage);
+                downloadMessage.style.display = 'block';
+
+                try {
+                    const subscribersCollectionRef = collection(db, `artifacts/${appId}/public/data/newsletter_subscribers`);
+                    const querySnapshot = await getDocs(subscribersCollectionRef);
+
+                    let csvContent = "Email,Subscribed At,User ID\n"; // CSV Header
+
+                    if (querySnapshot.empty) {
+                        showMessage("No subscribers to download.", 'error', downloadMessage);
+                        return;
+                    }
+
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const email = data.email || 'N/A';
+                        const subscribedAt = data.subscribedAt ? new Date(data.subscribedAt.toDate()).toLocaleString() : 'N/A';
+                        const subUserId = data.userId || 'N/A';
+
+                        // Escape commas in data if necessary (simple approach for now)
+                        const escapedEmail = `"${email.replace(/"/g, '""')}"`;
+                        const escapedSubscribedAt = `"${subscribedAt.replace(/"/g, '""')}"`;
+                        const escapedSubUserId = `"${subUserId.replace(/"/g, '""')}"`;
+
+                        csvContent += `${escapedEmail},${escapedSubscribedAt},${escapedSubUserId}\n`;
+                    });
+
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'chicstyle_subscribers.csv'; // Filename
+
+                    document.body.appendChild(link); // Append to body to make it clickable
+                    link.click(); // Programmatically click the link
+                    document.body.removeChild(link); // Clean up
+
+                    showMessage("Subscribers downloaded successfully!", 'success', downloadMessage);
+                } catch (error) {
+                    console.error("Error downloading subscribers:", error);
+                    showMessage(`Download failed: ${error.message}`, 'error', downloadMessage);
+                }
+            });
+        }
+
+        // --- General Website JavaScript (Existing Functionality) ---
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            const href = anchor.getAttribute('href');
+            if (href && href !== '#') {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navContent = document.getElementById('nav-content');
+
+        if (navToggle && navContent) {
+            navToggle.addEventListener('click', () => {
+                navContent.classList.toggle('hidden');
+            });
+            navContent.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!navContent.classList.contains('hidden')) {
+                        navContent.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        // Image Carousel Logic
+        const carousel = document.getElementById('image-carousel');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const prevButton = document.getElementById('prev-button');
+        const nextCarouselButton = document.getElementById('next-carousel-button');
+
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            carouselItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            if (carouselItems[index]) {
+                carouselItems[index].classList.add('active');
+            }
+            if (carousel) {
+                 carousel.style.transform = `translateX(-${index * 100}%)`;
+            }
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+            showSlide(currentIndex);
+        }
+
+        if (prevButton) {
+            prevButton.addEventListener('click', prevSlide);
+        }
+        if (nextCarouselButton) {
+            nextCarouselButton.addEventListener('click', nextSlide);
+        }
+        if (carouselItems.length > 0) {
+            showSlide(currentIndex);
+        }
+        // Optional: Auto-play carousel
+        // setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
